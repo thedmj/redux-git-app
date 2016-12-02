@@ -7,13 +7,12 @@ import React from "react";
 
 function store2props(store) {
     return {
-
+        
     }
 }
 function dispatch2props(dispatch) {
     return {
         dispatch,
-
     }
 }
 
