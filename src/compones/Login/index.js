@@ -23,7 +23,7 @@ var Login = React.createClass({
         )
     },
     componentDidMount(){
-        this.props.dispatch(init());
+        // this.props.dispatch(init());
     },
     login(){
         var username = this.refs.username.value;

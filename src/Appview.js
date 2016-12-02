@@ -10,10 +10,8 @@ import "antd/dist/antd.min.css";
 var Appview = React.createClass(
     {
         render() {
-            console.log(this.props);
             return (
                 <Router history={hashHistory}>
-                    <Route path="/" component={Home}/>
                     <Route path="login" component={Login}/>
                     <Route path="home" component={Home}/>
                     <Route path="me" component={Me} />
@@ -24,6 +22,7 @@ var Appview = React.createClass(
         },
         componentDidMount(){
             this.props.dispatch(init());
+            
         }
     }
 )

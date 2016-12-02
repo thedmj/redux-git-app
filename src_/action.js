@@ -34,6 +34,7 @@ export function init() {
             .withCredentials()
             .end(function (err, res) {
                 var data = res.body
+                console.log(data);
                 if(data.noLogin){
                     hashHistory.push('login')
                 }else {

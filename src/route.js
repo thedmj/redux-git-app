@@ -46,7 +46,7 @@ var R = React.createClass({
 
 var store2props = function (store) {
     return {
-        
+        aaa:store
     }
 }
 // import {bindActionCreators} from 'react-redux'
