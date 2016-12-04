@@ -2,20 +2,31 @@
  * Created by dingmingjie on 2016/12/1.
  */
 import React from "react";
-import {init,login} from "../../action";
-import {connect} from "react-redux";
+import ReactDOM from "react-dom";
+import Init from "../Init";
+import request from "superagent";
+import {Row,Col} from "antd";
+
+
+const host = "http://101.200.129.112:9527/deploy/";
+var loginurl = host+"login/";
+
 var Login = React.createClass({
     render(){
         return(
             <div>
-                <div>
-                    <span>用户名：</span>
-                    <input name="username" ref="username"/>
-                </div>
-                <div>
-                    <span>密码</span>
-                    <input name="password" ref="password"/>
-                </div>
+                <Row>
+                    <Col span={2}>用户名：</Col>
+                    <Col>
+                        <input name="username" ref="username"/>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col  span={2}>密码:</Col>
+                    <Col>
+                        <input name="password" ref="password"/>
+                    </Col>
+                </Row>
                 <div>
                     <button ref="login" onClick={this.login}>登录</button>
                 </div>
@@ -28,26 +39,23 @@ var Login = React.createClass({
     login(){
         var username = this.refs.username.value;
         var password = this.refs.password.value;
-        this.props.dispatch(login({
+        request.get(loginurl).query({
             name:username,
             password:password
-        }));
+        }).withCredentials().end(function(err,res){
+                if(res.body.noLogin){
+                    alert("用户名或密码错误！");
+                }else{
+                    ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+                    ReactDOM.render(
+                        <Init/>,
+                        document.getElementById('root')
+                    )
+                }
+                
+            });
     }
 
 });
-
-function store2props(store) {
-    return {
-        info:store.me.info,
-        project:store.me.project
-    }
-}
-function dispatch2props(dispatch) {
-    return {
-        dispatch,
-    }
-}
-
-Login = connect(store2props,dispatch2props)(Login);
 
 export default Login;

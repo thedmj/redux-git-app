@@ -20,34 +20,32 @@ import {
 } from 'react-router';
 
 import {Provider,connect} from 'react-redux'
-import {init,login,reset} from './action'
+import {init,login,reset,getInit} from './action'
 var R = React.createClass({
     render(){
         return (
-            <Router history={hashHistory}>
-                <Route path="login" component={Login}></Route>
+            <Router  history={hashHistory}>
+                <IndexRoute component={Home}/>
+                <Route path="/" component={Home}></Route>
+
                 <Route path="user" component={User}></Route>
                 <Route path="me" component={Me}></Route>
-                <Route path='repo/:name' component={Repo}></Route>
+                <Route path='repo/:id' component={Repo}></Route>
                 <Route path="project" component={Project}></Route>
                 <Route path="home" component={Home}></Route>
-                <Route path="*" component={Page404}></Route>
 
             </Router>
         )
     },
-    componentDidMount(){
-        const {init,dispatch,login,reset} = this.props
-        // dispatch(login({name:'lielie2',password:'lielie2'}))
-        dispatch(init())
-        // dispatch(reset({name:111,age:222}))
-    },
+
+    componentWillMount(){
+        const {dispatch} = this.props
+        dispatch(getInit(window.initData))
+    }
 })
 
-var store2props = function (store) {
-    return {
-        
-    }
+var store2props = function () {
+    return {}
 }
 // import {bindActionCreators} from 'react-redux'
 var action2props = function (dispatch) {

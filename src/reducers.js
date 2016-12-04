@@ -1,6 +1,6 @@
 import {combineReducers} from "redux"
 var me = function (state,action) {
-    state={info:{},project:{},users:[]};
+    state={info:{},project:[],users:[]};
     switch (action.type){
         case "init":
             return Object.assign({},state,{

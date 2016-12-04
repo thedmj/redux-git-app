@@ -1,13 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link,hashHistory } from "react-router";
+import { Link} from "react-router";
 import { Row, Col } from "antd";
+import {logout} from "../../action";
+
 var Home = React.createClass({
     render() {
         var others = this.props.store.me.users.map(function(o,i){
             return (
                 <div key={o.name+i}>
-                    {o.name}
+                    <Link to={"users/"+o.name}>{o.name}</Link>
                 </div>
             );
         });
@@ -27,10 +29,14 @@ var Home = React.createClass({
                         {others}
                     </Col>
                 </Row>
+                <button onClick={this.logout}>退出</button>
             </div>
         )
       
     },
+    logout(){
+        logout();
+    }
 });
 
 function store2Props(store) {

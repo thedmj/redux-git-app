@@ -16,13 +16,28 @@ var users = function (state = {items: []}) {
     return state
 }
 
-var projects = function (state = {items: []}) {
+var detail = function (state = {project:{
+    admin:{},
+    commit_info:[],
+    description:'',
+    folders:[],
+    local_branches:[],
+    active_branch:'',
+    logo:'',
+    name:'',
+    remote_branches:[],
+    url:''
+}},action) {
+    switch (action.type){
+        case 'get-detail':
+            return Object.assign({},state,{project:action.data})
+    }
     return state
 }
 
 var reducer = combineReducers({
     me,
     users,
-    projects
+    detail
 })
 export default reducer

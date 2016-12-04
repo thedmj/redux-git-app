@@ -6,9 +6,8 @@ import request from 'superagent'
 
 var host = 'http://101.200.129.112:9527';
 var api = {
-    init : '/deploy/init/',
-    login: '/deploy/login/',
-    logout : '/deploy/logout/'
+    logout : '/deploy/logout/',
+    detail : '/deploy/detail/'
 }
 import {hashHistory} from 'react-router'
 export function getInit(obj) {
@@ -27,23 +26,6 @@ export function getLogin(obj) {
     }
 }
 
-export function init() {
-    return function (dispatch) {
-        request
-            .get(host+api.init)
-            .withCredentials()
-            .end(function (err, res) {
-                var data = res.body
-                console.log(data);
-                if(data.noLogin){
-                    hashHistory.push('login')
-                }else {
-                    hashHistory.push('home')
-                    dispatch(getInit(res.body))
-                }
-            })
-    }
-}
 
 export function reset(obj) {
     return {
@@ -52,44 +34,32 @@ export function reset(obj) {
     }
 }
 
+export function getDetail(obj) {
+    return {
+        type : 'get-detail',
+        data : obj
+    }
+}
 
-export function login(query) {
+export function detail(query) {
     return function (dispatch) {
-        console.log(dispatch,'dispatch')
         request
-            .get(host+api.login)
+            .get(host+api.detail)
             .query(query)
             .withCredentials()
             .end(function (err, res) {
                 var data = res.body
-                if(data.noLogin){
-
-                }else {
-                    dispatch(init())
-                    //hashHistory.push('home')
-                }
-                // dispatch(getLogin(res.body))
-
+                dispatch(getDetail(data))
             })
     }
 }
 
-export function logout() {
-    return function (dispatch) {
-        console.log(dispatch,'dispatch')
-        request
-            .get(host+api.logout)
-            .withCredentials()
-            .end(function (err, res) {
-                var data = res.body
-                // if(data.noLogin){
-                //
-                // }else {
-                //     dispatch(init())
-                //     //hashHistory.push('home')
-                // }
-                // dispatch(getLogin(res.body))
 
-            })
-    }
-}
+
+
+
+
+
+
+
+

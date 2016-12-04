@@ -4,13 +4,44 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {Col,Row} from 'antd'
+import {hashHistory} from 'react-router'
+
+import './index.css'
+
+var User = React.createClass({
+    render(){
+        const {data}=this.props
+        const {name,project} = data
+        
+        var nodes = project.map(function (obj,i) {
+            return (
+                <li onClick={(e)=>hashHistory.push('repo/'+obj.id)} style={{float:'left'}} key={i}>
+                    <h5>{obj.name}</h5>
+                    <p>{obj.description}</p>
+                </li>
+            )
+        })
+        return(
+            <div>
+                <h4>{name}</h4>
+                <ul className="home-user-project">
+                    {nodes}
+                    <div style={{clear:'both'}}></div>
+                </ul>
+            </div>
+        )
+    }
+})
+
 var Home = React.createClass({
     render(){
         const {info,users} = this.props
 
         var nodes = users.map(function (obj,i) {
             return (
-                <li key={i}><Link to={'users/'+obj.name}>{obj.name}</Link></li>
+                <div key={i}>
+                    <User data={obj}/>
+                </div>
             )
         })
         return (
@@ -22,11 +53,11 @@ var Home = React.createClass({
                 </Row>
 
                 <Row>
-                    <Col span={2}>其他人</Col>
+
                     <Col span={20}>
-                        <ul>
+                        <div className="home-user">
                             {nodes}
-                        </ul>
+                        </div>
                     </Col>
                 </Row>
             </div>

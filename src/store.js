@@ -5,7 +5,6 @@ import reducers from "./reducers.js";
 import {createStore,compose,applyMiddleware} from "redux"
 import thunk from "redux-thunk";
 var store = createStore(reducers,compose(
-    applyMiddleware(thunk),
-    window.devToolsExtension()
+    applyMiddleware(thunk)
 ));
 export default store;
