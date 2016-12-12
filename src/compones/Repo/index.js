@@ -13,16 +13,12 @@ var Repo = React.createClass({
 
         var project = this.props.project;
         var {active_branch, admin, commit_info, description, folders, local_branches, logo, name, remote_branches, url,deploy} = project;
-        var local_branches_nodes = [];
-        for (var key in local_branches) {
-            local_branches_nodes.push(<a key={key} href="javascript:void(0)">{key}&nbsp;</a>);
-        }
-        // var remote_branches_nodes = [];
-        // for (var key in remote_branches) {
-        //     remote_branches_nodes.push(<a key={key} href="javascript:void(0)">{key}&nbsp;</a>);
+        var local_branches_nodes = local_branches.map(function(o,i){
+            return (<a key={i} href="javascript:void(0)">{o}&nbsp;</a>);
+        });
+        // for (var key in local_branches) {
+        //     local_branches_nodes.push(<a key={key} href="javascript:void(0)">{key}&nbsp;</a>);
         // }
-        // console.log(remote_branches);
-        console.log(remote_branches);
         var remote_branches_nodes = remote_branches.map(function(o,i){
             return (<a key={i} href="javascript:void(0)">{o}&nbsp;|&nbsp;</a>);
         });

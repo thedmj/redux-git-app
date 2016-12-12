@@ -15,22 +15,30 @@ var me = function (state={info:{},project:[],users:[]},action) {
     }
 }
 
-var detail = function (state={active_branch:"",project:{admin:{},commit_info:[],description:"",folders:[],local_branches:{},logo:"",name:"",remote_branches:[],url:"",deploy:""}},action) {
+var detail = function (state={active_branch:"",project:{admin:{},commit_info:[],description:"",folders:[],local_branches:[],logo:"",name:"",remote_branches:[],url:"",deploy:""}},action) {
     
     switch (action.type){
         case "detail":
             
             var remote = action.data.remote_branches;
-            
-            var arr = [];
+            var remote_arr = [];
             for(var key in remote){
                 if(key !== "origin/HEAD"){
                     var branch = key.replace("origin","");
-                    arr.push(branch);
+                    remote_arr.push(branch);
                 }
             }
-            
-            action.data.remote_branches= arr;
+
+            var local = action.data.local_branches;
+            var local_arr = [];
+            for(var key in remote){
+                if(key !== "origin/HEAD"){
+                    var branch = key.replace("origin","");
+                    local_arr.push(branch);
+                }
+            }
+            action.data.remote_branches= remote_arr;
+            action.data.local_branches= local_arr;
             return Object.assign({},state,{project:action.data});
             
         default :
