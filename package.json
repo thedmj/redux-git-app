@@ -6,7 +6,10 @@
     "react-scripts": "0.7.0"
   },
   "dependencies": {
+    "Particleground.js": "^1.1.0",
     "antd": "^2.5.0",
+    "gsap": "^1.19.0",
+    "jquery": "^2.2.4",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^4.4.6",

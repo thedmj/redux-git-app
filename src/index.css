@@ -1,5 +1,37 @@
+html,body{width:100%;height:100%;}
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Microsoft Yahei";
 }
+#root {width:100%;height:100%;}
+#login {width:100%;height: 100%;position: relative;background:#ccc;}
+#login-background{width:100%;height: 100%;position: absolute;overflow: hidden;}
+#login-background canvas{width:100%;height:100%;}
+#login .login-form {
+  max-width: 300px;
+  height:360px;
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  bottom: 0;
+  margin:auto;
+}
+#login .login-form-forgot {
+  float: right;
+}
+#login .login-form-button {
+  width: 100%;
+}
+.home .header{text-align: center;padding: 30px 0 30px 0;}
+.home .mine{height: 60px;line-height: 60px;text-align: center;margin-bottom: 30px;  }
+.home .header h1{text-align: center;height: 60px;line-height: 60px;}
+.home .others{}
+.home .other-users{}
+.home .other-users>li{width:200px;height:200px;float: left;border: 1px solid #eee;text-align: center;border-radius: 50%;margin:0 60px 30px 50px; position: relative;background:#eee;}
+.home .project-list{position: absolute;left: 0;right: 0;top: 0;bottom: 0;width:65%;height: 65%;margin: auto;}
+.home .project-list h3{font-size: 21px;}
+.home .project-list h5{cursor: pointer;}
+.repo{}
+.repo .repoContent{padding-top: 30px;}
