@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 // import { Link,hashHistory } from "react-router";
 import { Row, Col, Steps, Button } from "antd";
-import { detail } from "../../action";
+import { detail ,deploy,branch } from "../../action";
 const Step = Steps.Step;
 
 var Repo = React.createClass({
@@ -10,17 +10,15 @@ var Repo = React.createClass({
         return {}
     },
     render() {
-
+        var This = this;
         var project = this.props.project;
         var {active_branch, admin, commit_info, description, folders, local_branches, logo, name, remote_branches, url,deploy} = project;
         var local_branches_nodes = local_branches.map(function(o,i){
             return (<a key={i} href="javascript:void(0)">{o}&nbsp;</a>);
         });
-        // for (var key in local_branches) {
-        //     local_branches_nodes.push(<a key={key} href="javascript:void(0)">{key}&nbsp;</a>);
-        // }
+      
         var remote_branches_nodes = remote_branches.map(function(o,i){
-            return (<a key={i} href="javascript:void(0)">{o}&nbsp;|&nbsp;</a>);
+            return (<a onClick={()=>{This.branchhandle(o)}} className={o==="/"+active_branch?"active":""} key={i} href="javascript:void(0)">{o}&nbsp;|&nbsp;</a>);
         });
         var stepnode = [];
         commit_info.map(function (o, i) {
@@ -51,12 +49,11 @@ var Repo = React.createClass({
                         <h2><span>项目名称：</span>{name}</h2>
                         <h2><span>作者：</span>{admin.name}</h2>
                         <Col className="repoContent" push={1} span={6}>
-                            <h3>active_branch:</h3>
-                            <p><a href="javascript:void(0)">{active_branch}</a></p>
+                            
                             <h3>folders:</h3>
                             {folders.map(function (o, i) {
                                 return (
-                                    <a key={i} href="javascript:void(0)">/{o}&nbsp;</a>
+                                    <a className={o===deploy?"active":""} key={i} href="javascript:void(0)">/{o}&nbsp;</a>
                                 );
                             })}
                             <h3>deploy</h3>
@@ -65,9 +62,10 @@ var Repo = React.createClass({
                             <div>{remote_branches_nodes}</div>
                             <h3>local_branches:</h3>
                             <div>{local_branches_nodes}</div>
+                            <h3>active_branch:</h3>
+                            <p><a href="javascript:void(0)">{active_branch}</a></p>
                             
-                            
-                            <Button>上线</Button>
+                            <Button onClick={this.deployhandle}>上线</Button>
                         </Col>
 
                         <Col span={18} className="repoContent">
@@ -88,6 +86,14 @@ var Repo = React.createClass({
     componentDidMount() {
         var id = this.props.params.id;
         this.props.dispatch(detail({ repo_id: id }));
+    },
+    deployhandle(){
+        var {id} = this.props.params;
+        this.props.dispatch(deploy({repo_id:id}));
+    },
+    branchhandle(o){
+        var {id} = this.props.params;
+        this.props.dispatch(branch({repo_id:id,branch:o}));
     }
 });
 

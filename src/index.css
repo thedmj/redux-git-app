@@ -35,3 +35,4 @@ body {
 .home .project-list h5{cursor: pointer;}
 .repo{}
 .repo .repoContent{padding-top: 30px;}
+.repo .active{color:red;}

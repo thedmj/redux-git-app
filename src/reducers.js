@@ -40,7 +40,10 @@ var detail = function (state={active_branch:"",project:{admin:{},commit_info:[],
             action.data.remote_branches= remote_arr;
             action.data.local_branches= local_arr;
             return Object.assign({},state,{project:action.data});
-            
+        case "new-local-branch":
+            var local = action.data.local_branches;
+            var arr =[...local,action.name]
+            return Object.assign({},state,{local_branches:arr});
         default :
             return state;
     }
