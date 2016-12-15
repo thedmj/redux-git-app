@@ -28,22 +28,43 @@ var detail = function (state={active_branch:"",project:{admin:{},commit_info:[],
                     remote_arr.push(branch);
                 }
             }
-
+            
             var local = action.data.local_branches;
             var local_arr = [];
-            for(var key in remote){
+            for(var key in local){
                 if(key !== "origin/HEAD"){
                     var branch = key.replace("origin","");
                     local_arr.push(branch);
                 }
             }
-            action.data.remote_branches= remote_arr;
-            action.data.local_branches= local_arr;
-            return Object.assign({},state,{project:action.data});
+            var p = Object.assign({},action.data,{remote_branches:remote_arr,local_branches:local_arr});
+            
+            return Object.assign({},state,{project:p});
         case "new-local-branch":
+            // var local = state.project.local_branches;
+            // var arr =[...local,action.name]
+            // alert(action.name);
+            // console.log(state);
+            // return Object.assign({},state,{local_branches:arr,active_branch:action.name});
+            var remote = action.data.remote_branches;
+            var remote_arr = [];
+            for(var key in remote){
+                if(key !== "origin/HEAD"){
+                    var branch = key.replace("origin","");
+                    remote_arr.push(branch);
+                }
+            }
             var local = action.data.local_branches;
-            var arr =[...local,action.name]
-            return Object.assign({},state,{local_branches:arr});
+            var local_arr = [];
+            for(var key in local){
+                if(key !== "origin/HEAD"){
+                    var branch = key.replace("origin","");
+                    local_arr.push(branch);
+                }
+            }
+            var p = Object.assign({},action.data,{remote_branches:remote_arr,local_branches:local_arr,active_branch:action.name.replace("/","")});
+            console.log(p);
+            return Object.assign({},state,{project:p});
         default :
             return state;
     }

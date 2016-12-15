@@ -9,6 +9,10 @@ var logouturl = host+"logout/";
 var detailurl = host+"detail/";
 var deployurl = host + "deploy/";
 var branchurl = host + "branch/";
+var checkouturl = host + "checkout/";
+var pullurl = host + "pull/";
+var reseturl = host + "reset/";
+var editDeployurl = host + "editDeploy/";
 
 export function init(){ //页面初始化
     return function(dispatch){
@@ -33,7 +37,6 @@ export function detail(query){
     return function(dispatch){
         request.get(detailurl).withCredentials().query(query).end(function(err,res){
             if(res.ok){
-                // console.log(res.body);
                 dispatch({
                     type:"detail",
                     data:res.body
@@ -52,10 +55,61 @@ export function deploy(query){
 export function branch(query){
     return function(dispatch){
         request.get(branchurl).withCredentials().query(query).end(function(err,res){
+            console.log(err,res);
             if(res.ok){
                 dispatch({
                     type:"new-local-branch",
-                    name:query.branch
+                    name:query.branch,
+                    data:res.body
+                });
+                
+            }
+        });
+    }
+}
+export function checkout(query){
+    return function(dispatch){
+        request.get(checkouturl).withCredentials().query(query).end(function(err,res){
+            if(res.ok){
+                dispatch({
+                    type:"detail",
+                    data:res.body
+                });
+            }
+        });
+    }
+}
+export function pull(query){
+    return function(dispatch){
+        request.get(pullurl).withCredentials().query(query).end(function(err,res){
+            if(res.ok){
+                dispatch({
+                    type:"detail",
+                    data:res.body
+                });
+            }
+        });
+    }
+}
+export function reset(query){
+    return function(dispatch){
+        request.get(reseturl).withCredentials().query(query).end(function(err,res){
+            if(res.ok){
+                dispatch({
+                    type:"detail",
+                    data:res.body
+                });
+            }
+        });
+    }
+}
+export function editDeploy(query){
+    return function(dispatch){
+        request.get(editDeployurl).withCredentials().query(query).end(function(err,res){
+            if(res.ok){
+                dispatch({
+                    type:"detail",
+                    data:res.body
                 });
             }
         });

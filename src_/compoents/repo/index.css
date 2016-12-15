@@ -1,3 +1,6 @@
+.repo{
+    padding-top: 50px;
+}
 .repo h3{
     font-size: 20px;
 }
@@ -6,4 +9,15 @@
 }
 .repo a{
     font-size: 14px;
+}
+.repo .active{
+    color: #60a4dd;
+}
+.repo div span{
+    font-size: 14px;
+    cursor: pointer;
+
+}
+.repo div span:hover{
+    text-decoration: underline;
 }

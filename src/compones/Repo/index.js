@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 // import { Link,hashHistory } from "react-router";
 import { Row, Col, Steps, Button } from "antd";
-import { detail ,deploy,branch } from "../../action";
+import { detail ,deploy,branch,checkout,pull,reset,editDeploy } from "../../action";
 const Step = Steps.Step;
 
 var Repo = React.createClass({
@@ -13,12 +13,13 @@ var Repo = React.createClass({
         var This = this;
         var project = this.props.project;
         var {active_branch, admin, commit_info, description, folders, local_branches, logo, name, remote_branches, url,deploy} = project;
-        var local_branches_nodes = local_branches.map(function(o,i){
-            return (<a key={i} href="javascript:void(0)">{o}&nbsp;</a>);
-        });
+        
       
         var remote_branches_nodes = remote_branches.map(function(o,i){
             return (<a onClick={()=>{This.branchhandle(o)}} className={o==="/"+active_branch?"active":""} key={i} href="javascript:void(0)">{o}&nbsp;|&nbsp;</a>);
+        });
+        var local_branches_nodes = local_branches.map(function(o,i){
+            return (<a onClick={()=>{This.checkouthandle(o)}} className={o===active_branch?"active":""} key={i} href="javascript:void(0)">{o}&nbsp;|&nbsp;</a>);
         });
         var stepnode = [];
         commit_info.map(function (o, i) {
@@ -28,7 +29,7 @@ var Repo = React.createClass({
                         <Col span={12}>
                             <p>{o.committer.name}</p>
                             <p>{o.committer.email}</p>
-                            <p><Button type="ghost">reset to here</Button></p>
+                            <p><Button type="ghost" onClick={()=>{This.reset(o.sha)}}>reset to here</Button></p>
                         </Col>
                         <Col span={12}>
                             <p>{o.message}</p>
@@ -49,11 +50,10 @@ var Repo = React.createClass({
                         <h2><span>项目名称：</span>{name}</h2>
                         <h2><span>作者：</span>{admin.name}</h2>
                         <Col className="repoContent" push={1} span={6}>
-                            
                             <h3>folders:</h3>
                             {folders.map(function (o, i) {
                                 return (
-                                    <a className={o===deploy?"active":""} key={i} href="javascript:void(0)">/{o}&nbsp;</a>
+                                    <a onClick={()=>{This.editDeploy(o)}} className={o===deploy?"active":""} key={i} href="javascript:void(0)">/{o}&nbsp;</a>
                                 );
                             })}
                             <h3>deploy</h3>
@@ -64,7 +64,7 @@ var Repo = React.createClass({
                             <div>{local_branches_nodes}</div>
                             <h3>active_branch:</h3>
                             <p><a href="javascript:void(0)">{active_branch}</a></p>
-                            
+                            <Button onClick={this.pull}>PULL</Button>
                             <Button onClick={this.deployhandle}>上线</Button>
                         </Col>
 
@@ -94,6 +94,22 @@ var Repo = React.createClass({
     branchhandle(o){
         var {id} = this.props.params;
         this.props.dispatch(branch({repo_id:id,branch:o}));
+    },
+    checkouthandle(o){
+        var {id} = this.props.params;
+        this.props.dispatch(checkout({repo_id:id,branch:o}));
+    },
+    pull(){
+        var {id} = this.props.params;
+        this.props.dispatch(pull({repo_id:id}));
+    },
+    reset(sha){
+        var {id} = this.props.params;
+        this.props.dispatch(reset({repo_id:id,sha:sha}));
+    },
+    editDeploy(folder){
+        var {id} = this.props.params;
+        this.props.dispatch(editDeploy({repo_id:id,deploy:folder}));
     }
 });
 

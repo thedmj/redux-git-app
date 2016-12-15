@@ -9,3 +9,13 @@
     float: left;
     margin: 20px;
 }
+.me-project-create{
+    cursor: pointer;
+    font-size: 50px;
+    line-height: 100px;
+    text-align: center;
+}
+.me-project-create:hover{
+    color: #5972dd;
+    transition: .3s;
+}

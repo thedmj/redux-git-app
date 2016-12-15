@@ -1,0 +1,14 @@
+.fade-enter.fade-enter-active {
+    animation-name: fadeIn;
+    animation-play-state: running;
+}
+
+.fade-appear.fade-appear-active {
+    animation-name: fadeIn;
+    animation-play-state: running;
+}
+
+.fade-leave.fade-leave-active {
+    animation-name: fadeOut;
+    animation-play-state: running;
+}
