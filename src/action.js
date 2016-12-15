@@ -58,8 +58,7 @@ export function branch(query){
             console.log(err,res);
             if(res.ok){
                 dispatch({
-                    type:"new-local-branch",
-                    name:query.branch,
+                    type:"detail",
                     data:res.body
                 });
                 
