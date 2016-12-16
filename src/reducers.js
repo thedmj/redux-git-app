@@ -24,7 +24,7 @@ var detail = function (state={active_branch:"",project:{admin:{},commit_info:[],
             var remote_arr = [];
             for(var key in remote){
                 if(key !== "origin/HEAD"){
-                    var branch = key.replace("origin","");
+                    var branch = key.replace("origin/","");
                     remote_arr.push(branch);
                 }
             }
@@ -33,7 +33,7 @@ var detail = function (state={active_branch:"",project:{admin:{},commit_info:[],
             var local_arr = [];
             for(var key in local){
                 if(key !== "origin/HEAD"){
-                    var branch = key.replace("origin","");
+                    var branch = key;
                     local_arr.push(branch);
                 }
             }
@@ -42,9 +42,7 @@ var detail = function (state={active_branch:"",project:{admin:{},commit_info:[],
             return Object.assign({},state,{project:p});
         case "new-local-branch":
             var local = state.project.local_branches;
-            var arr =[...local,action.name]
-            alert(action.name);
-            console.log(state);
+            var arr =[...local,action.name];
             return Object.assign({},state,{local_branches:arr,active_branch:action.name});
        
         default :
